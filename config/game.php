@@ -1,0 +1,210 @@
+<?php
+
+return [
+    'cookie' => 'fine_save',
+
+    'sip' => [
+        'base_power' => 1,
+        'max_per_request' => 40,
+        'combo_window_ms' => 1200,
+        'combo_cap' => 5,
+        'crit_multiplier' => 5,
+        'crit_base_chance' => 0.12,
+        'crit_chance_per_level' => 0.03,
+        'unlit_multiplier' => 0.3,
+        'panic_multiplier' => 0.5,
+        'heat_per_sip' => 0.4,
+    ],
+
+    'heat' => [
+        'max' => 100,
+        'decay_per_sec' => 1.2,
+        'bonus_divisor' => 250,
+    ],
+
+    'idle' => [
+        'max_offline_seconds' => 8 * 3600,
+        'machine_per_level' => 0.4,
+        'merch_per_level' => 0.7,
+    ],
+
+    'buffs' => [
+        'viral_seconds' => 20,
+        'viral_multiplier' => 3,
+        'livestream_seconds' => 20,
+        'livestream_multiplier' => 3,
+        'livestream_cooldown' => 45,
+        'ad_seconds' => 60,
+        'ad_multiplier' => 2,
+        'panic_seconds' => 25,
+        'fine_pass_multiplier' => 1.15,
+    ],
+
+    'stages' => [
+        [
+            'id' => 'kitchen',
+            'title' => 'Кухня в огне',
+            'threshold' => 0,
+            'caption' => 'Тост подгорел. Кофе горячий. Это нормально.',
+        ],
+        [
+            'id' => 'office',
+            'title' => 'Стендап в огне',
+            'threshold' => 60,
+            'caption' => 'Команда синхронизируется. Вместе с пожаром.',
+        ],
+        [
+            'id' => 'city',
+            'title' => 'Город в огне',
+            'threshold' => 280,
+            'caption' => 'Скайлайн даже красивый, если не присматриваться.',
+        ],
+        [
+            'id' => 'internet',
+            'title' => 'Мем виралится',
+            'threshold' => 1200,
+            'caption' => 'Весь интернет пьёт кофе и делает вид, что всё ок.',
+        ],
+        [
+            'id' => 'cosmos',
+            'title' => 'Всё fine во вселенной',
+            'threshold' => 5000,
+            'caption' => 'Энтропия, но с молоком. Мы справимся.',
+        ],
+    ],
+
+    'upgrades' => [
+        'mug' => [
+            'name' => 'Большая кружка',
+            'blurb' => '+1 файн за каждый глоток. Классика кликера.',
+            'icon' => 'mug',
+            'mechanic' => false,
+            'max' => 40,
+            'base_cost' => 10,
+            'cost_mult' => 1.17,
+            'unlock_lifetime' => 0,
+        ],
+        'machine' => [
+            'name' => 'Кофемашина',
+            'blurb' => 'Сама наливает кофе. Открывает доход без кликов.',
+            'icon' => 'machine',
+            'mechanic' => true,
+            'max' => 25,
+            'base_cost' => 35,
+            'cost_mult' => 1.2,
+            'unlock_lifetime' => 8,
+        ],
+        'nervous' => [
+            'name' => 'Нервный глоток',
+            'blurb' => 'Кликай быстро — копится комбо до ×5. Меняет ритм кликов.',
+            'icon' => 'combo',
+            'mechanic' => true,
+            'max' => 1,
+            'base_cost' => 50,
+            'cost_mult' => 1,
+            'unlock_lifetime' => 25,
+        ],
+        'espresso' => [
+            'name' => 'Двойной эспрессо',
+            'blurb' => 'Шанс критического глотка ×5. Удача, а не просто множитель.',
+            'icon' => 'crit',
+            'mechanic' => true,
+            'max' => 8,
+            'base_cost' => 80,
+            'cost_mult' => 1.28,
+            'unlock_lifetime' => 70,
+        ],
+        'extinguisher' => [
+            'name' => 'Огнетушитель-декор',
+            'blurb' => 'Кризисы забирают меньше файна. Тушить всё равно никто не будет.',
+            'icon' => 'extinguisher',
+            'mechanic' => false,
+            'max' => 5,
+            'base_cost' => 120,
+            'cost_mult' => 1.4,
+            'unlock_lifetime' => 120,
+        ],
+        'stream' => [
+            'name' => 'Стрим с места пожара',
+            'blurb' => 'Кнопка «В эфир»: 20 сек ×3 файна, потом кулдаун. Новое действие.',
+            'icon' => 'stream',
+            'mechanic' => true,
+            'max' => 1,
+            'base_cost' => 200,
+            'cost_mult' => 1,
+            'unlock_lifetime' => 60,
+            'unlock_stage' => 'office',
+        ],
+        'merch' => [
+            'name' => 'Мерч This is Fine',
+            'blurb' => 'Автопродажа кружек. Второй источник пассивного дохода.',
+            'icon' => 'merch',
+            'mechanic' => false,
+            'max' => 20,
+            'base_cost' => 250,
+            'cost_mult' => 1.22,
+            'unlock_lifetime' => 280,
+            'unlock_stage' => 'city',
+        ],
+    ],
+
+    'events' => [
+        'viral' => [
+            'kind' => 'bonus',
+            'title' => 'Виральный твит',
+            'body' => 'Кто-то запостил «this is fine» с твоей кухни. Хайп хлынул. ×3 файна на 20 секунд.',
+            'cta' => 'Это fine',
+        ],
+        'inspection' => [
+            'kind' => 'crisis',
+            'title' => 'Пожарная инспекция',
+            'body' => 'Инспектор смотрит на комнату, на кружку, на тебя. «Вы понимаете, что тут пожар?» — «Это fine».',
+            'cta' => 'Заплатить и улыбнуться',
+        ],
+        'rain' => [
+            'kind' => 'twist',
+            'title' => 'Дождь сквозь крышу',
+            'body' => 'Огонь потух. Без огня мем не работает, кофемашина молчит. Нужно поджечь заново. Это тоже fine.',
+            'cta' => 'Поджечь заново',
+        ],
+        'panic' => [
+            'kind' => 'penalty',
+            'title' => 'Это НЕ fine',
+            'body' => 'На секунду ты заметил пламя. Глотки слабее, пока копиум не сделает своё дело.',
+            'cta' => 'Выпить копиум',
+        ],
+        'cat' => [
+            'kind' => 'bonus',
+            'title' => 'Кот из соседней квартиры',
+            'body' => 'Кот прошёл сквозь огонь, сел на стол и ничего не сказал. Это уже два мема. Бонусный файн.',
+            'cta' => 'Налить и ему',
+        ],
+    ],
+
+    'monetization' => [
+        'fine_pass' => [
+            'name' => 'Fine Pass',
+            'price_label' => '299 ₽ · демо',
+            'blurb' => 'Сезонный пропуск: +15% ко всему файну и значок отрицания. Оплата не списывается.',
+            'type' => 'pass',
+        ],
+        'insurance' => [
+            'name' => "It's Fine+",
+            'price_label' => '149 ₽ · демо',
+            'blurb' => 'Страховка: следующие 3 кризиса не забирают файн. Классический «skip fail».',
+            'type' => 'consumable',
+        ],
+        'starter' => [
+            'name' => 'Набор новичка',
+            'price_label' => '99 ₽ · демо',
+            'blurb' => '+150 файна и золотая кружка. Стартовый пак, который «случайно» очень выгоден.',
+            'type' => 'iap',
+        ],
+        'ad_boost' => [
+            'name' => 'Реклама ×2',
+            'price_label' => 'бесплатно · демо',
+            'blurb' => 'Посмотреть «рекламу» 4 секунды — и минута двойного файна. Модель rewarded ad.',
+            'type' => 'ad',
+        ],
+    ],
+];
