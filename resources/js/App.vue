@@ -1,7 +1,7 @@
 <template>
     <div v-if="error && !state" class="boot-error">
         <p>{{ error }}</p>
-        <button type="button" @click="boot">Ещё раз. Это fine.</button>
+        <button type="button" @click="boot">Ещё раз. Норм.</button>
     </div>
 
     <div v-else-if="!state" class="boot">Завариваем кофе…</div>
@@ -9,20 +9,20 @@
     <div v-else class="game" :class="[state.player.stage, { unlit: !state.player.fire_lit, panic: panicOn }]">
         <header class="hud">
             <div>
-                <p class="kicker">This is Fine Tycoon</p>
+                <p class="kicker">Всё нормально · тайкун</p>
                 <h1>{{ state.stage.title }}</h1>
                 <p class="caption">{{ state.stage.caption }}</p>
             </div>
             <div class="meters">
                 <div class="fine-box">
-                    <span>Файн</span>
+                    <span>Норм</span>
                     <strong>{{ format(displayFine) }}</strong>
                     <small>{{ perSecLabel }}</small>
                 </div>
                 <div class="heat">
                     <span>Жар {{ Math.round(state.player.heat) }}</span>
                     <div class="bar"><i :style="{ width: state.player.heat + '%' }" /></div>
-                    <small>чем жарче — тем больше файна</small>
+                    <small>чем жарче — тем больше норма</small>
                 </div>
             </div>
         </header>
@@ -32,7 +32,7 @@
             <div class="bar"><i :style="{ width: state.next_stage.progress * 100 + '%' }" /></div>
             <em>ещё {{ format(state.next_stage.remaining) }}</em>
         </div>
-        <div v-else class="stage-bar done">Вселенная в огне. Дальше только fine.</div>
+        <div v-else class="stage-bar done">На орбите тоже горит. Дальше только норм.</div>
 
         <div class="layout">
             <section class="scene" @pointerdown.prevent="sip">
@@ -60,7 +60,7 @@
                     </span>
                 </div>
 
-                <p class="hint">Кликай по собаке / кружке — пей кофе, копи файн</p>
+                <p class="hint">Кликай по собаке и кружке — пей чай, копи норм</p>
 
                 <div class="combo" v-if="state.player.combo_unlocked">
                     комбо ×{{ combo }}
@@ -68,12 +68,12 @@
                 </div>
 
                 <div class="buffs">
-                    <span v-if="state.player.buffs.viral_ms">вирус ×3</span>
-                    <span v-if="state.player.buffs.livestream_ms">эфир ×3</span>
-                    <span v-if="state.player.buffs.ad_ms">реклама ×2</span>
-                    <span v-if="panicOn" class="bad">не fine ×0.5</span>
-                    <span v-if="!state.player.fire_lit" class="bad">без огня</span>
-                    <span v-if="state.player.fine_pass">Fine Pass</span>
+                    <span v-if="state.player.buffs.viral_ms">семейный чат ×3</span>
+                    <span v-if="state.player.buffs.livestream_ms">сторис ×3</span>
+                    <span v-if="state.player.buffs.ad_ms">ролик ×2</span>
+                    <span v-if="panicOn" class="bad">не норм ×0.5</span>
+                    <span v-if="!state.player.fire_lit" class="bad">затопили</span>
+                    <span v-if="state.player.fine_pass">Норм+</span>
                 </div>
 
                 <div class="actions" @pointerdown.stop>
@@ -87,7 +87,7 @@
                         {{ liveLabel }}
                     </button>
                     <button v-if="!state.player.fire_lit" type="button" class="live" @click="relight">
-                        Поджечь заново
+                        Включить чайник
                     </button>
                 </div>
             </section>
@@ -103,7 +103,7 @@
                     @buy="buy"
                     @iap="iap"
                 />
-                <button type="button" class="reset" @click="reset">Новая кухня</button>
+                <button type="button" class="reset" @click="reset">Новая хрущёвка</button>
             </aside>
         </div>
 
@@ -117,9 +117,9 @@
 
         <div v-if="adOpen" class="overlay ad">
             <div class="modal">
-                <p class="kind">Реклама партнёра · демо</p>
-                <h2>Бургер тоже в огне</h2>
-                <p class="body">Представьте здесь ролик на 4 секунды. Игрок терпит — игра платит.</p>
+                <p class="kind">Реклама VK · демо</p>
+                <h2>Дошик тоже в огне</h2>
+                <p class="body">Типичный ролик: лавка, кэшбэк, «успей за 4 секунды». Игрок терпит — студия живёт.</p>
                 <div class="ad-bar"><i :style="{ width: adProgress + '%' }" /></div>
                 <p v-if="adProgress < 100">Ещё {{ Math.ceil((100 - adProgress) / 25) }} сек.</p>
                 <button v-else type="button" class="cta" @click="finishAd">Забрать ×2 на минуту</button>
@@ -168,11 +168,11 @@ const perSecLabel = computed(() => {
 });
 
 const speech = computed(() => {
-    if (!state.value.player.fire_lit) return 'Это… мокро. Но тоже fine.';
-    if (panicOn.value) return 'Ладно, может, не fine.';
-    if (state.value.player.buffs.livestream_ms) return 'Всем привет, у нас небольшой уют.';
-    if (state.value.player.heat > 75) return 'Жарковато. Кофе как раз.';
-    return 'This is fine.';
+    if (!state.value.player.fire_lit) return 'Затопили. Но тоже норм.';
+    if (panicOn.value) return 'Мам, я занят. Всё хорошо.';
+    if (state.value.player.buffs.livestream_ms) return 'Всем привет, у нас уют.';
+    if (state.value.player.heat > 75) return 'Душновато. Чай как раз.';
+    return 'Всё нормально.';
 });
 
 const liveDisabled = computed(() => {
@@ -182,9 +182,9 @@ const liveDisabled = computed(() => {
 
 const liveLabel = computed(() => {
     const b = state.value.player.buffs;
-    if (b.livestream_ms > 0) return 'В эфире…';
-    if (b.livestream_cooldown_ms > 0) return `Кулдаун ${Math.ceil(b.livestream_cooldown_ms / 1000)}с`;
-    return 'В эфир ×3';
+    if (b.livestream_ms > 0) return 'Сторис идёт…';
+    if (b.livestream_cooldown_ms > 0) return `Потом ${Math.ceil(b.livestream_cooldown_ms / 1000)} с`;
+    return 'Сторис ×3';
 });
 
 onMounted(boot);
@@ -217,9 +217,13 @@ function apply(payload) {
 
 function format(n) {
     const v = Number(n) || 0;
-    if (v >= 1_000_000) return `${(v / 1_000_000).toFixed(2)}M`;
-    if (v >= 10_000) return `${(v / 1000).toFixed(1)}K`;
-    return v.toFixed(v >= 100 ? 0 : 1);
+    if (v >= 1_000_000) {
+        return `${(v / 1_000_000).toLocaleString('ru-RU', { maximumFractionDigits: 1 })} млн`;
+    }
+    if (v >= 10_000) {
+        return `${(v / 1000).toLocaleString('ru-RU', { maximumFractionDigits: 1 })} тыс.`;
+    }
+    return v.toLocaleString('ru-RU', { maximumFractionDigits: v >= 100 ? 0 : 1 });
 }
 
 function sip(event) {
@@ -317,7 +321,7 @@ async function buy(id) {
     await flush();
     try {
         apply(await api.upgrade(id));
-        say('Куплено. Комната всё ещё в огне.');
+        say('Куплено. В хрущёвке по-прежнему тепло.');
     } catch (e) {
         say(e.message);
     }
@@ -330,7 +334,7 @@ async function iap(sku) {
     }
     try {
         apply(await api.monetize(sku));
-        say('Демо-покупка прошла. Деньги не списывались.');
+        say('Демо-донат прошёл. СБП ничего не списал.');
     } catch (e) {
         say(e.message);
     }
@@ -353,7 +357,7 @@ async function finishAd() {
     adOpen.value = false;
     try {
         apply(await api.monetize('ad_boost'));
-        say('×2 на минуту. Спасибо, что посмотрели «рекламу».');
+        say('×2 на минуту. Спасибо, что досмотрели ролик.');
     } catch (e) {
         say(e.message);
     }
@@ -362,7 +366,7 @@ async function finishAd() {
 async function goLive() {
     try {
         apply(await api.action('go_live'));
-        say('Камера смотрит в огонь. Зрители в восторге.');
+        say('Сторис выложили. В комментариях одно «жиза».');
     } catch (e) {
         say(e.message);
     }
@@ -370,7 +374,7 @@ async function goLive() {
 
 async function relight() {
     apply(await api.action('relight'));
-    say('Спичка. Мем спасён.');
+    say('Чайник щёлкнул. Мем спасён.');
 }
 
 async function dismiss() {
@@ -379,15 +383,15 @@ async function dismiss() {
 
 async function copium() {
     apply(await api.action('copium'));
-    say('Копиум подействовал. Снова fine.');
+    say('Корвалол подействовал. Снова норм.');
 }
 
 async function reset() {
-    if (!confirm('Начать с чистой кухни? Прогресс в этой вкладке сбросится.')) return;
+    if (!confirm('Начать с чистой хрущёвки? Прогресс в этой вкладке сбросится.')) return;
     apply(await api.reset());
     combo.value = 1;
     pending.value = 0;
-    say('Новая кухня. Старый огонь тоже был fine.');
+    say('Новая кухня. Старый пожар тоже был норм.');
 }
 
 function say(text) {

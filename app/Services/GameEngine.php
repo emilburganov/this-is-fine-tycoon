@@ -104,7 +104,7 @@ class GameEngine
 
         $cost = $this->upgradeCost($catalog, $level);
         if ($game->fine + 0.0001 < $cost) {
-            abort(422, 'Не хватает файна');
+            abort(422, 'Не хватает норма');
         }
 
         $game->fine = round($game->fine - $cost, 2);
@@ -140,15 +140,15 @@ class GameEngine
         $this->applyTick($game);
 
         if (! $game->stream_unlocked) {
-            abort(422, 'Сначала купи стрим');
+            abort(422, 'Сначала купи сторис');
         }
 
         if ($game->livestream_until && $game->livestream_until->isFuture()) {
-            abort(422, 'Уже в эфире');
+            abort(422, 'Сторис уже идёт');
         }
 
         if ($game->livestream_cooldown_until && $game->livestream_cooldown_until->isFuture()) {
-            abort(422, 'Кулдаун стрима');
+            abort(422, 'Потом, дай остыть');
         }
 
         $seconds = (int) config('game.buffs.livestream_seconds');

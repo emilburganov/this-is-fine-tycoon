@@ -2,7 +2,7 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "fine/this-is-fine-tycoon",
     "type": "project",
-    "description": "Clicker-tycoon по мему This is Fine: Laravel API + Vue.",
+    "description": "Кликер-тайкун «Всё нормально»: Laravel API + Vue, сеттинг под русский интернет.",
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {

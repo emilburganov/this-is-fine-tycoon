@@ -1,5 +1,5 @@
 <template>
-    <svg class="dog-svg" viewBox="0 0 280 240" role="img" aria-label="Собака пьёт кофе в огне">
+    <svg class="dog-svg" viewBox="0 0 280 240" role="img" aria-label="Собака пьёт чай на горящей кухне">
         <ellipse class="dog-shadow" cx="140" cy="214" rx="72" ry="10" />
 
         <g class="dog-body" :class="{ sipping }">

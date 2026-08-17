@@ -4,15 +4,15 @@
             <p class="kind">{{ label }}</p>
             <h2>{{ event.title }}</h2>
             <p class="body">{{ event.body }}</p>
-            <p v-if="event.payload?.lost > 0" class="payload">Потеряно {{ format(event.payload.lost) }} файна.</p>
-            <p v-else-if="event.payload?.lost === 0" class="payload">Страховка It's Fine+ покрыла кризис. 0 урона.</p>
-            <p v-if="event.payload?.gained" class="payload">+{{ format(event.payload.gained) }} файна от кота.</p>
+            <p v-if="event.payload?.lost > 0" class="payload">Списано {{ format(event.payload.lost) }} норма по квитанции.</p>
+            <p v-else-if="event.payload?.lost === 0" class="payload">Страховка «Не горит» покрыла кризис. 0 урона.</p>
+            <p v-if="event.payload?.gained" class="payload">+{{ format(event.payload.gained) }} норма от кота.</p>
             <div class="row">
                 <button v-if="event.key === 'rain'" type="button" class="cta" @click="$emit('relight')">
-                    Поджечь заново
+                    Включить чайник
                 </button>
                 <button v-else-if="event.key === 'panic'" type="button" class="cta" @click="$emit('copium')">
-                    Выпить копиум
+                    Капнуть корвалол
                 </button>
                 <button type="button" class="cta ghost" @click="$emit('dismiss')">
                     {{ event.cta }}
